@@ -28,6 +28,7 @@ class Maze():
         self._break_entrance_and_exit()
         self._break_walls_r(0,0)
         self._draw_cells()
+        self._reset_cells_visited()
 
     def _create_cells(self):
         self._cells = []
@@ -102,3 +103,8 @@ class Maze():
                 case _:
                     raise ValueError("Invalid direction to break wall")
             self._break_walls_r(choice[0], choice[1])
+
+    def _reset_cells_visited(self):
+        for row in range(self._num_rows):
+            for col in range(self._num_cols):
+                self._cells[row][col].visited = False
