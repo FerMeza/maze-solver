@@ -50,9 +50,11 @@ class Cell():
         self._x2 = bottom_right.x
         self._y2 = bottom_right.y
         self._win = win
+        self.visited = False
     
     def draw(self):
         if not isinstance(self._win, Window):
+            print("hola")
             return
         line = Line(Point(self._x1, self._y1), Point(self._x2,self._y1))
         if self.has_top_wall:
