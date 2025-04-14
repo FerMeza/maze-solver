@@ -54,18 +54,26 @@ class Cell():
     def draw(self):
         if not isinstance(self._win, Window):
             return
+        line = Line(Point(self._x1, self._y1), Point(self._x2,self._y1))
         if self.has_top_wall:
-            line = Line(Point(self._x1, self._y1), Point(self._x2,self._y1))
             self._win.draw_line(line)
+        else:
+            self._win.draw_line(line, "white")
+        line = Line(Point(self._x1, self._y1), Point(self._x1,self._y2))
         if self.has_left_wall:
-            line = Line(Point(self._x1, self._y1), Point(self._x1,self._y2))
             self._win.draw_line(line)
+        else:
+            self._win.draw_line(line, "white")
+        line = Line(Point(self._x1, self._y2), Point(self._x2,self._y2))
         if self.has_bottom_wall:
-            line = Line(Point(self._x1, self._y2), Point(self._x2,self._y2))
             self._win.draw_line(line)
+        else:
+            self._win.draw_line(line, "white")
+        line = Line(Point(self._x2, self._y1), Point(self._x2,self._y2))
         if self.has_right_wall:
-            line = Line(Point(self._x2, self._y1), Point(self._x2,self._y2))
             self._win.draw_line(line)
+        else:
+            self._win.draw_line(line, "white")
 
     def draw_move(self, to_cell: "Cell", undo: bool = False) -> None:
         if not isinstance(self._win, Window):
