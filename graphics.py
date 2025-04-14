@@ -33,9 +33,9 @@ class Window():
 
 class Cell():
     def __init__(self,
-                 win: Window,
                  top_left: Point,
-                 bottom_right: Point, 
+                 bottom_right: Point,
+                 win: Window | None = None,
                  has_left_wall: bool = True,
                  has_right_wall: bool = True, 
                  has_top_wall: bool = True, 
@@ -52,7 +52,7 @@ class Cell():
         self._win = win
     
     def draw(self):
-        if self._win is None:
+        if not isinstance(self._win, Window):
             return
         if self.has_top_wall:
             line = Line(Point(self._x1, self._y1), Point(self._x2,self._y1))
@@ -68,6 +68,8 @@ class Cell():
             self._win.draw_line(line)
 
     def draw_move(self, to_cell: "Cell", undo: bool = False) -> None:
+        if not isinstance(self._win, Window):
+            return
         self_center_x = (self._x1 + self._x2) // 2
         self_center_y = (self._y1 + self._y2) // 2
         src_point = Point(self_center_x, self_center_y)

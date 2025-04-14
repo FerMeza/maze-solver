@@ -11,7 +11,7 @@ class Maze():
         num_cols: int,
         cell_size_x: int,
         cell_size_y: int,
-        win: Window,
+        win: Window | None = None,
     ):
         self._x1 = x1
         self._y1 = y1
@@ -36,12 +36,14 @@ class Maze():
         bottom_right = deepcopy(top_left)
         bottom_right.x += self._cell_size_x
         bottom_right.y += self._cell_size_y
-        return Cell(self._win, top_left, bottom_right)
+        return Cell(top_left, bottom_right, self._win)
 
     def _draw_cell(self, r, c):
-        self._cells[r][c].draw()
-        self._animate()
+        if isinstance(self._win, Window):
+            self._cells[r][c].draw()
+            self._animate()
 
     def _animate(self):
-        self._win.redraw()
-        sleep(0.05)
+        if isinstance(self._win, Window):
+            self._win.redraw()
+            sleep(0.05)
